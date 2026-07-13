@@ -1,0 +1,84 @@
+{
+  "app-id": "io.github.siavash79.markdown-to-pdf",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "46",
+  "sdk": "org.gnome.Sdk",
+  "command": "markdown-to-pdf",
+  "finish-args": [
+    "--socket=wayland",
+    "--socket=fallback-x11",
+    "--share=ipc",
+    "--filesystem=home"
+  ],
+  "cleanup": [
+    "/include",
+    "/lib/pkgconfig",
+    "/man",
+    "/share/doc",
+    "/share/gtk-doc",
+    "/share/man",
+    "/share/pkgconfig",
+    "*.la",
+    "*.a"
+  ],
+  "modules": [
+    {
+      "name": "python3-deps",
+      "buildsystem": "simple",
+      "build-commands": [
+        "pip3 install --prefix=/app --no-build-isolation --no-deps markdown-it-py weasyprint"
+      ],
+      "sources": [
+        {
+          "type": "file",
+          "url": "https://files.pythonhosted.org/packages/source/m/markdown-it-py/markdown-it-py-3.0.0.tar.gz",
+          "sha256": "e3f60a94fa066dc52ec76661e37c851cb232d92f9886b15cb560aaada2df8feb"
+        },
+        {
+          "type": "file",
+          "url": "https://files.pythonhosted.org/packages/source/m/mdurl/mdurl-0.1.2.tar.gz",
+          "sha256": "bb413d29f5eea38f31dd4754dd7377d4465116fb207585f97bf925588687c1ba"
+        }
+      ]
+    },
+    {
+      "name": "weasyprint",
+      "buildsystem": "simple",
+      "build-commands": [
+        "pip3 install --prefix=/app --no-build-isolation --no-deps weasyprint"
+      ],
+      "sources": [
+        {
+          "type": "file",
+          "url": "https://files.pythonhosted.org/packages/source/w/weasyprint/weasyprint-62.3.tar.gz",
+          "sha256": "1e6c96b87c3ce74c1c5f7bdf7b99b8e1ecfba5f1c2f14607c0344f88ea7d6b88"
+        }
+      ]
+    },
+    {
+      "name": "markdown-to-pdf",
+      "buildsystem": "simple",
+      "build-commands": [
+        "install -Dm755 src/main.py /app/bin/markdown-to-pdf",
+        "install -Dm644 src/__init__.py /app/lib/python3/site-packages/src/__init__.py",
+        "install -Dm644 src/converter.py /app/lib/python3/site-packages/src/converter.py",
+        "install -Dm644 src/window.py /app/lib/python3/site-packages/src/window.py",
+        "install -Dm644 src/styles.css /app/share/markdown-to-pdf/styles.css",
+        "install -Dm644 data/io.github.siavash79.markdown-to-pdf.desktop /app/share/applications/io.github.siavash79.markdown-to-pdf.desktop",
+        "install -Dm644 data/io.github.siavash79.markdown-to-pdf.metainfo.xml /app/share/metainfo/io.github.siavash79.markdown-to-pdf.metainfo.xml",
+        "install -Dm644 data/icons/io.github.siavash79.markdown-to-pdf.svg /app/share/icons/hicolor/scalable/apps/io.github.siavash79.markdown-to-pdf.svg",
+        "install -Dm644 data/icons/io.github.siavash79.markdown-to-pdf-256.png /app/share/icons/hicolor/256x256/apps/io.github.siavash79.markdown-to-pdf.png",
+        "install -Dm644 data/icons/io.github.siavash79.markdown-to-pdf-128.png /app/share/icons/hicolor/128x128/apps/io.github.siavash79.markdown-to-pdf.png",
+        "install -Dm644 data/icons/io.github.siavash79.markdown-to-pdf-64.png /app/share/icons/hicolor/64x64/apps/io.github.siavash79.markdown-to-pdf.png",
+        "install -Dm644 data/icons/io.github.siavash79.markdown-to-pdf-48.png /app/share/icons/hicolor/48x48/apps/io.github.siavash79.markdown-to-pdf.png",
+        "install -Dm644 data/icons/io.github.siavash79.markdown-to-pdf-32.png /app/share/icons/hicolor/32x32/apps/io.github.siavash79.markdown-to-pdf.png"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": "https://github.com/rahimifh/md2pdf.git"
+        }
+      ]
+    }
+  ]
+}
